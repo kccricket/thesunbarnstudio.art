@@ -1,0 +1,12 @@
+{
+  "name": "thesunbarnstudio.art",
+  "version": "0.0.1",
+  "description": "The Sun Barn Studio",
+  "main": "index.html",
+  "repository": "ssh://lqtm.net/external/kccricket//repository/thesunbarnstudio.art",
+  "author": "Keith Constable <kccricket@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "slick-carousel": "^1.6.0"
+  }
+}
