@@ -7,6 +7,15 @@
   "author": "Keith Constable <kccricket@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-compass": "^1.1.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-gitinfo": "^0.1.8",
+    "grunt-link-html": "^0.1.2",
+    "load-grunt-tasks": "^3.5.2",
     "slick-carousel": "^1.6.0"
   }
 }

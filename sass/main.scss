@@ -21,6 +21,15 @@
   }
 }
 
+@mixin overlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 ul {
   @include inline-list;
 }
@@ -28,16 +37,53 @@ ul {
 $color-facebook: #3B5998;
 $color-text: #444;
 $color-etsy: #F56400;
+$color-shadow: rgba(0, 0, 0, 0.50);
 
 $image-path: "../img";
 
+#body {
+  margin: 0 auto;
+}
+
+#section-title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+#section-top {
+  position: relative;
+}
+
 #section-carousel {
   width: 100%;
-  height: 300px;
+  max-height: 500px;
+  overflow-y: hidden;
+}
+
+#section-carousel::after {
+  @include overlay;
+  box-shadow: inset 0px 11px 8px -10px $color-shadow,
+    inset 0px -11px 8px -10px $color-shadow;
+}
+
+#section-carousel img {
+  width: 100%;
+}
+
+img.vertical-align {
+  transition: margin-top .5s ease-out;
+}
+
+
+div.vertical-align {
+  transition: max-width .5s ease-out;
 }
 
 #section-links {
   @include centerer(true, false);
+  bottom: -125px;
 }
 
 #section-links a {
@@ -45,7 +91,7 @@ $image-path: "../img";
   width: 250px;
   height: 250px;
   @include hide-text;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.50);
+  box-shadow: 0px 5px 10px 0px $color-shadow;
 }
 
 #link-facebook {

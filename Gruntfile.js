@@ -1,4 +1,4 @@
-/* global module:false */
+/* global module:false, require */
 
 module.exports = function (g) {
   "use strict";
