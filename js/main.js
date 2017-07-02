@@ -1,4 +1,7 @@
-/* global $, window */
+/* global require, window */
+var $ = require('jquery');
+$.slick = require('slick-carousel');
+
 $(function () {
   $('#section-carousel').slick({
     autoplay: false,
