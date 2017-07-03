@@ -1,4 +1,5 @@
 /* global module:false, require */
+/* jshint esnext:true */
 
 module.exports = function (g) {
   "use strict";
@@ -105,7 +106,7 @@ module.exports = function (g) {
     watch: {
       css: {
         files: ["sass/**/*.scss"],
-        tasks: ["sass:build"],
+        tasks: ["build_css"],
       },
       js: {
         files: [
@@ -113,9 +114,8 @@ module.exports = function (g) {
           "*.html"
         ],
         tasks: [
-          'includes:build_html',
           "browserify:build",
-          "link_html:build"
+          "build_html"
         ]
       },
       options: {
@@ -178,13 +178,13 @@ module.exports = function (g) {
       build_images: {
         options: {
           replace: {
-            'pattern[id^="image"]': {
+            'image': {
               'xlink:href': π([imagesDir,'%value%'])
             }
           }
         },
         files: {
-          [π([buildDir,imagesDir,'sun-barn.svg'])]: π([buildDir,imagesDir,'sun-barn.svg'])
+          [π([buildDir,imagesDir,'sun-barn.dist.svg'])]: π([buildDir,imagesDir,'sun-barn.svg'])
         }
       }
     },
@@ -222,6 +222,7 @@ module.exports = function (g) {
     "copy:build_images",
     'image_resize:carousel',
     "tinyimg",
+    'replace_attribute:build_images'
   ]);
 
   g.registerTask('build_css', [

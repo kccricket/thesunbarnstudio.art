@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500,700,800,900|Rancho');
 @import 'global';
 
-
-
 $loaded-transition-time: 0.75s;
 
 body {
@@ -20,7 +18,10 @@ body:after {
   z-index: 9999;
   opacity: 1;
   visibility: visible;
-  overflow: visible;
+}
+
+body.loaded {
+  overflow: initial;
 }
 
 body.loaded:after {
@@ -38,7 +39,9 @@ body.loaded .spinner {
 }
 
 #body {
-  padding: 80px 0;
+  position: relative;
+  max-width: 1336px;
+  margin: 0 auto;
 }
 
 #section-title {
@@ -49,28 +52,23 @@ body.loaded .spinner {
   transform: rotate(1.5deg);
 }
 
+#section-title .paper-shadow {
+  padding: 1em 2em;
+}
+
 #section-title h1 {
   position: relative;
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Rancho', serif;
   font-weight: 700;
-  font-size: 400%;
+  font-size: 5vw;
   @include no-spacing;
   color: rgba(255,0,255,0.75);
   top: 3px;
 }
 
-//#section-title h1,
-//#section-title h1::after,
-//#section-title h1::before {
-//  text-shadow: 0px 1px 1.5px $color-shadow;
-//}
-
 #section-title h1::after {
   content: attr(data-text);
   position: absolute;
-//  left: $cmy-offset-horizontal;
-//  top: $cmy-offset-vertical;
-//  right: -$cmy-offset-horizontal;
   top:-3px;
   right:0;
   bottom: 0;
@@ -89,51 +87,41 @@ body.loaded .spinner {
 
 #section-top {
   position: relative;
+  padding: 2em;
 }
 
 #section-carousel {
   width: 100%;
-  max-height: 500px;
-  overflow-y: hidden;
-  box-shadow: 0px 0px 8px 10px $color-shadow;
 }
 
-//#section-carousel::after {
-//  @include overlay;
-//  box-shadow: inset 0px 11px 8px -10px $color-shadow,
-//    inset 0px -11px 8px -10px $color-shadow;
-//  pointer-events: none;
-//}
-
-#section-carousel img {
-  width: 100%;
-}
-
-img.vertical-align {
-  transition: margin-top .5s ease-out;
-}
-
-div.vertical-align {
-  transition: max-width .5s ease-out;
+#section-carousel svg {
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
 }
 
 #section-links {
-  @include centerer(true, false);
-  bottom: -125px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -25%;
 }
 
 #section-links ul {
   @include inline-list;
+  text-align: center;
+  display: block;
 }
 
-#section-links li {
+#section-links ul li {
+  width: 20%;
+  padding-bottom: 20%;
   margin: 0 1em;
+  position: relative;
 }
 
 #section-links a {
-  display: inline-block;
-  width: 250px;
-  height: 250px;
+  @include overlay;
   @include hide-text;
   box-shadow: 0px 5px 10px 0px $color-shadow;
 }
