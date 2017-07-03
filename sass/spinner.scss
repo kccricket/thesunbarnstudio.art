@@ -1,0 +1,76 @@
+@import 'mixins';
+
+$colors: #2172b8
+  #18a39b
+  #82c545
+  #f8b739
+  #f06045
+  #ed2861
+  #c12680
+  #5d3191;
+
+$inner: 30px;
+$border: 6px;
+$spacing: 1px;
+
+.spinner {
+  animation: rotate 10s infinite linear;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: block;
+  z-index: 10000;
+  opacity: 1;
+  visibility: visible;
+
+  $size: $inner + length($colors) * ($border + $spacing) * 2;
+
+  width: $size;
+  height: $size;
+
+  margin-top: -$size/2;
+  margin-right: 0;
+  margin-bototm: 0;
+  margin-left: -$size/2;
+
+  span {
+    animation: rotate 3s infinite cubic-bezier(.09, .6, .8, .03);
+    transform-origin: 50% 100% 0;
+
+    position: absolute;
+    display: inline-block;
+
+    top: 50%;
+    left: 50%;
+
+    border: solid $border transparent;
+    border-bottom: none;
+
+    @each $current in $colors {
+      $i: index($colors, $current);
+
+      &:nth-child(#{$i}) {
+        $size: $inner + $i * ($border + $spacing) * 2;
+
+        animation-timing-function: cubic-bezier(.09, .3 * $i, .12 * $i, .03);
+
+        width: $size;
+        height: $size / 2;
+
+        margin-top: -$size / 2;
+        margin-left: -$size / 2;
+
+        border-color: $current;
+
+        border-top-left-radius: $inner + $i * $border;
+        border-top-right-radius: $inner + $i * $border;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

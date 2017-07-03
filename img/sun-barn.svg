@@ -11,8 +11,14 @@
    viewBox="0 0 481 274"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="sun-barn.svg">
+   inkscape:version="0.92.1 r"
+   sodipodi:docname="sun-barn.svg"
+   width="513.06665"
+   height="292.26666"
+   inkscape:export-filename="/Users/kccricket/Sites/thesunbarnstudio.art/img/sun-barn.png"
+   inkscape:export-xdpi="229.19527"
+   inkscape:export-ydpi="229.19527"
+   enable-background="new">
   <metadata
      id="metadata28">
     <rdf:RDF>
@@ -38,36 +44,47 @@
      inkscape:window-height="915"
      id="namedview26"
      showgrid="false"
-     inkscape:zoom="1.6112038"
-     inkscape:cx="226.25815"
-     inkscape:cy="141.72325"
-     inkscape:window-x="1875"
-     inkscape:window-y="183"
+     inkscape:zoom="1.8087319"
+     inkscape:cx="258.19195"
+     inkscape:cy="118.39789"
+     inkscape:window-x="99"
+     inkscape:window-y="96"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg2"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="35.430909,2.0141602"
+       orientation="0,1"
+       id="guide5307"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="191.74782,95.397951"
+       orientation="1,0"
+       id="guide5309"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="145.41375,175.82721"
+       orientation="1,0"
+       id="guide5345"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
+  </sodipodi:namedview>
   <defs
      id="defs4">
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#pattern5298"
+       id="pattern5305"
+       patternTransform="matrix(0.93750002,0,0,0.93750002,196.95164,128.78878)" />
     <pattern
        inkscape:collect="always"
        xlink:href="#pattern5655"
        id="pattern5662"
        patternTransform="matrix(0.40104288,0,0,0.40104288,22.991533,41.03506)" />
-    <pattern
-       id="image-1"
-       patternUnits="objectBoundingBox"
-       width="2195"
-       height="1250"
-       preserveAspectRatio="xMidYMid slice">
-      <image
-         sodipodi:absref="/Users/kccricket/Sites/thesunbarnstudio.art/img/IMG_8588.JPG"
-         xlink:href="IMG_8588.JPG"
-         id="image7"
-         y="0"
-         x="0"
-         preserveAspectRatio="xMidYMid slice"
-         height="1250"
-         width="2195" />
-    </pattern>
     <pattern
        patternUnits="userSpaceOnUse"
        width="1097.5"
@@ -77,51 +94,168 @@
       <image
          sodipodi:absref="/Users/kccricket/Sites/thesunbarnstudio.art/img/IMG_8588.JPG"
          xlink:href="IMG_8588.JPG"
-         y="0"
-         x="0"
+         width="1097.5"
+         height="625"
+         preserveAspectRatio="none"
+         style="image-rendering:optimizeSpeed"
          id="image5652"
+         x="0"
+         y="0" />
+    </pattern>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="212.62915"
+       height="273.03516"
+       patternTransform="translate(77.079346,0.27526769)"
+       id="pattern5747">
+      <image
+         sodipodi:absref="/Users/kccricket/Sites/thesunbarnstudio.art/img/barn-1.jpg"
+         xlink:href="barn-1.jpg"
+         width="212.62915"
+         height="273.03516"
+         preserveAspectRatio="none"
+         style="image-rendering:optimizeSpeed"
+         id="image5726"
+         x="0"
+         y="0" />
+    </pattern>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter6198">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood6200" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite6202" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur6204" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset6206" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite6208" />
+    </filter>
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="230.49"
+       height="156"
+       patternTransform="matrix(0.93750002,0,0,0.93750002,72.137619,44.370998)"
+       id="pattern5298">
+      <image
+         sodipodi:absref="/Users/kccricket/Sites/thesunbarnstudio.art/img/barn-3.jpg"
+         xlink:href="barn-3.jpg"
+         y="7.1054274e-15"
+         x="0"
+         id="image5295"
          style="image-rendering:optimizeSpeed"
          preserveAspectRatio="none"
-         height="625"
-         width="1097.5" />
+         height="156"
+         width="230.49001" />
     </pattern>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Sun Glow"
+       id="filter5537">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(253,229,113)"
+         result="flood"
+         id="feFlood5527" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite5529" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="8"
+         result="blur"
+         id="feGaussianBlur5531" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset5533" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite5535" />
+    </filter>
   </defs>
+  <circle
+     r="37.283756"
+     id="circle6636"
+     style="fill:#fdee9e;fill-opacity:1;stroke:none;stroke-width:10.96925163;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     cy="-52.684414"
+     cx="218.68867"
+     transform="rotate(45)" />
+  <circle
+     transform="rotate(45,104.44328,181.63227)"
+     cx="120.846"
+     cy="74.366997"
+     style="fill:#c42b00;stroke:#fde571;stroke-opacity:1;stroke-width:7.50000017;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     id="ellipse14"
+     r="25.492001" />
   <path
      id="barn-path-1"
-     d="m 26.268,272.062 0,-94.906 119.146,-36.842 0,-12.434 14.781,-2.564 c 1.6,6.387 5.079,12.03 9.816,16.306 L 70.184,272.114 Z m 167.044,-227.493 0,40.108 c -0.464,-0.019 -0.93,-0.029 -1.398,-0.029 -5.841,0 -11.324,1.531 -16.069,4.215 L 154.521,72.78 Z m 140.9,30.956 0,63.793 121.057,36.495 0,95.844 -37.09,0 -194.543,-146.356 c 0.637,-2.547 0.975,-5.212 0.975,-7.956 0,-4.802 -1.035,-9.362 -2.894,-13.469 l 66.505,-59.505 z"
-     style="fill:url(#pattern5662);fill-opacity:1"
+     d="M 26.268,271.98584 V 177.156 L 145.414,140.314 V 127.88 l 14.781,-2.564 c 1.6,6.387 5.079,12.03 9.816,16.306 L 70.275553,271.98584 Z M 193.312,44.569 v 40.108 c -0.464,-0.019 -0.93,-0.029 -1.398,-0.029 -5.841,0 -11.324,1.531 -16.069,4.215 L 154.521,72.78 Z m 140.9,30.956 v 63.793 l 121.057,36.495 v 96.17284 h -37.09 L 223.636,125.301 c 0.637,-2.547 0.975,-5.212 0.975,-7.956 0,-4.802 -1.035,-9.362 -2.894,-13.469 l 66.505,-59.505 z"
+     style="fill:url(#pattern5662);fill-opacity:1;filter:url(#filter6198)"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccccccccscccccccccsccc" />
+  <path
+     d="m 407.838,271.98584 -208.845,0 V 149.274 c 10.2,-2.252 18.612,-9.266 22.783,-18.592 z"
+     style="fill:url(#pattern5305);fill-opacity:1;filter:url(#filter6198)"
+     id="path10"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="M 191.74782,271.98584 H 80.555738 L 175.174,145.438 c 4.852,2.897 10.51882,4.573 16.57382,4.604 z M 240.52594,10.285 284.018,41.631 219.346,99.546 C 214.784,92.529 207.603,87.372 199.189,85.46 V 40.259 Z M 149.428,75.719 170.797,92.38 c -7.083,5.998 -11.58,14.956 -11.58,24.965 0,0.561 0.014,1.119 0.042,1.673 l -13.84525,2.947 V 78.07 Z"
+     style="fill:url(#pattern5747);fill-opacity:1;filter:url(#filter6198)"
+     id="path12"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cccccccccccccscccc" />
+  <path
+     d="M 120.434,92.485 240.52594,6.332 359.102,89.073 359.10188,83.809373 240.52594,1.0674962 120.43407,87.220936 Z"
+     id="path16"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccccc" />
+  <path
+     d="M 479.716,179.149 338.971,137.011 v -5.26444 l 140.74495,42.13875 z"
+     id="path18"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="m 1.284,181.515 140.51,-43.822 v -5.26394 L 1.284,176.288 Z"
+     id="path20"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="M 204.503,149.599"
+     style="fill:#d8d8d8"
+     id="path22"
      inkscape:connector-curvature="0" />
   <path
-     d="M 407.838 272.273 L 198.993 272.273 L 198.993 149.274 C 209.193 147.022 217.605 140.008 221.776 130.682 Z"
-     style="fill: rgb(92, 92, 220);"
-     id="path10" />
-  <path
-     d="M 191.748 272.044 L 80.491 272.044 L 175.174 145.438 C 180.026 148.335 185.693 150.011 191.748 150.042 Z M 240.526 10.285 L 284.018 41.631 L 219.346 99.546 C 214.784 92.529 207.603 87.372 199.189 85.46 L 199.189 40.259 Z M 149.428 75.719 L 170.797 92.38 C 163.714 98.378 159.217 107.336 159.217 117.345 C 159.217 117.906 159.231 118.464 159.259 119.018 L 145.314 121.965 L 145.314 78.07 Z"
-     style="fill: rgb(186, 218, 85);"
-     id="path12" />
-  <ellipse
-     transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, 159.024155, -20.653753)"
-     cx="120.846"
-     cy="74.367"
-     rx="25.492"
-     ry="25.492"
-     style="fill: rgb(196, 43, 0);"
-     id="ellipse14" />
-  <path
-     d="M 120.434 92.485 L 240.365 6.332 L 359.102 89.073 L 358.932 83.613 L 240.024 1.726 L 120.263 88.22 L 120.434 92.485 Z"
-     id="path16" />
-  <path
-     d="M 479.716 179.149 L 338.971 137.011 L 338.971 131.698 L 479.375 174.543 L 479.716 179.149 Z"
-     id="path18" />
-  <path
-     d="M 1.284 181.515 L 141.794 137.693 L 141.794 133.266 L 1.284 176.288 L 1.284 181.515 Z"
-     id="path20" />
-  <path
-     d="M 204.503 149.599"
-     style="fill: rgb(216, 216, 216);"
-     id="path22" />
-  <path
-     d="M 132.703 88.149"
-     style="fill: rgb(216, 216, 216);"
-     id="path24" />
+     d="M 132.703,88.149"
+     style="fill:#d8d8d8"
+     id="path24"
+     inkscape:connector-curvature="0" />
 </svg>

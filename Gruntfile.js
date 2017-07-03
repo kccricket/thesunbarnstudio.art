@@ -8,6 +8,7 @@ module.exports = function (g) {
   }
 
   require('load-grunt-tasks')(g);
+  var inliner = require('sass-inline-svg');
 
   var buildDir = "_build";
   var imagesDir = "img";
@@ -30,16 +31,16 @@ module.exports = function (g) {
           },
         ]
       },
-      build_html: {
-        files: [
-          {
-            src: [
-              "*.html"
-            ],
-            dest: π([buildDir,"/"])
-          },
-        ]
-      },
+      //      build_html: {
+      //        files: [
+      //          {
+      //            src: [
+      //              "*.html"
+      //            ],
+      //            dest: π([buildDir,"/"])
+      //          },
+      //        ]
+      //      },
       build_images: {
         files: [
           {
@@ -66,14 +67,20 @@ module.exports = function (g) {
       }
     },
 
-    compass: {
-      build: {
-        options: {
-          sassDir: "sass/",
-          cssDir: π([buildDir,cssDir,"/"]),
-          relativeAssets: true,
-          imagesDir: π([imagesDir,"/"])
+    sass: {
+      options: {
+        sourcemap: 'none',
+        functions: {
+          svg: inliner(π([buildDir,imagesDir,"/"]))
         }
+      },
+      build: {
+        files: [{
+          expand: true,
+          src: ['sass/**/*.scss'],
+          dest: π([buildDir,cssDir,'/']),
+          ext: '.css'
+        }]
       }
     },
 
@@ -98,7 +105,7 @@ module.exports = function (g) {
     watch: {
       css: {
         files: ["sass/**/*.scss"],
-        tasks: ["compass:build"],
+        tasks: ["sass:build"],
       },
       js: {
         files: [
@@ -106,7 +113,7 @@ module.exports = function (g) {
           "*.html"
         ],
         tasks: [
-          "copy:build_html",
+          'includes:build_html',
           "browserify:build",
           "link_html:build"
         ]
@@ -165,20 +172,60 @@ module.exports = function (g) {
         src: π([imagesDir,'carousel/*.jpg']),
         dest: π([buildDir,imagesDir,'carousel/'])
       }
+    },
+
+    replace_attribute: {
+      build_images: {
+        options: {
+          replace: {
+            'pattern[id^="image"]': {
+              'xlink:href': π([imagesDir,'%value%'])
+            }
+          }
+        },
+        files: {
+          [π([buildDir,imagesDir,'sun-barn.svg'])]: π([buildDir,imagesDir,'sun-barn.svg'])
+        }
+      }
+    },
+
+    processhtml: {
+      options: {
+      },
+      build_html: {
+        expand: true,
+        src: [
+          '*.html'
+        ],
+        dest: π([buildDir,"/"])
+      }
     }
   });
 
   g.registerTask("build", [
     "gitinfo",
-    "copy:build_css",
-    "copy:build_html",
+    //"copy:build_css",
+    //    "copy:build_html",
+    'build_images',
+    "copy:build_vendor",
+    'build_css',
+    "browserify",
+    "build_html"
+  ]);
+
+  g.registerTask('build_html', [
+    'processhtml:build_html',
+    "link_html"
+  ]);
+
+  g.registerTask('build_images', [
     "copy:build_images",
     'image_resize:carousel',
-    "copy:build_vendor",
-    "compass",
-    "postcss",
     "tinyimg",
-    "browserify",
-    "link_html"
+  ]);
+
+  g.registerTask('build_css', [
+    "sass:build",
+    "postcss"
   ]);
 };
