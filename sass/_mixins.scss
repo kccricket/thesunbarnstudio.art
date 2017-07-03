@@ -57,3 +57,7 @@
     display: inline-block;
   }
 }
+
+@mixin transition-all {
+  transition: all 0.5s ease;
+}
