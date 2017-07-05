@@ -13,11 +13,11 @@ module.exports = function (g) {
       dir: π([base, '/']),
       img: π([base, 'img/']),
       css: π([base, 'css/']),
-      vendorcss: π([base, 'vendor', 'css/']),
+      vendorcss: π([base, 'css/vendor/']),
       sass: π([base, 'sass/']),
       js: π([base, 'js/']),
       jsvendor: π([base, 'js/vendor/']),
-      pages: π([base, 'pages/'])
+      pages: π([base, 'html/'])
     };
   }
 
@@ -45,11 +45,13 @@ module.exports = function (g) {
       build_images: {
         files: [
           {
+            expand: true,
+            cwd: src.img,
             src: [
-              π([src.img,"*"]),
-              "!"+π([src.img,"**/*.svg"])
+              "*",
+              "!**/*.svg"
             ],
-            dest: build.dir
+            dest: build.img
           }
         ]
       },
@@ -105,9 +107,6 @@ module.exports = function (g) {
         targetHtml: [
           π([build.pages,'**/*.html'])
         ],
-        options: {
-          cwd: build.dir,
-        }
       }
     },
 
@@ -217,9 +216,11 @@ module.exports = function (g) {
 
     assemble: {
       options: {
-        layout: 'standard.hbs',
-        layoutdir: 'layouts/',
-        partials: 'partials/**/*.hbs'
+        layoutdir: π([src.dir,'layouts']),
+        layout: 'standard',
+        partials: π([src.dir,'partials/**/*.hbs']),
+        layoutext: '.hbs',
+        pkg: '<%= pkg %>',
       },
       build_html: {
         expand: true,
@@ -245,8 +246,8 @@ module.exports = function (g) {
   ]);
 
   g.registerTask('build_html', [
-    'processhtml:build_html',
     'assemble:build_html',
+    'processhtml:build_html',
     'link_html'
   ]);
 
