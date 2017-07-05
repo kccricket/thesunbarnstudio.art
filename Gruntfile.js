@@ -8,15 +8,25 @@ module.exports = function (g) {
     return parts.map(function(part) { return part.trim().replace(/^[\/]*/g, ''); }).join(separator || '/');
   }
 
+  function cpo(base) {
+    return {
+      dir: π([base, '/']),
+      img: π([base, 'img/']),
+      css: π([base, 'css/']),
+      vendorcss: π([base, 'vendor', 'css/']),
+      sass: π([base, 'sass/']),
+      js: π([base, 'js/']),
+      jsvendor: π([base, 'js/vendor/']),
+      pages: π([base, 'pages/'])
+    };
+  }
+
   require('load-grunt-tasks')(g);
   var inliner = require('sass-inline-svg');
 
-  var buildDir = "_build";
-  var imagesDir = "img";
-  var cssDir = "css";
-  var jsDir = "js";
-  var fontsDir = π([cssDir,"fonts"]);
-  var distDir = "dist";
+  var src = cpo('src');
+  var build = cpo('_build');
+  var dist = cpo("dist");
 
   g.initConfig({
     pkg: g.file.readJSON("package.json"),
@@ -26,30 +36,20 @@ module.exports = function (g) {
         files: [
           {
             src: [
-              π([cssDir,"**/*.css"])
+              π([src.css,"**/*.css"])
             ],
-            dest: π([buildDir,"/"])
+            dest: build.dir
           },
         ]
       },
-      //      build_html: {
-      //        files: [
-      //          {
-      //            src: [
-      //              "*.html"
-      //            ],
-      //            dest: π([buildDir,"/"])
-      //          },
-      //        ]
-      //      },
       build_images: {
         files: [
           {
             src: [
-              π([imagesDir,"*"]),
-              "!"+π([imagesDir,"**/*.svg"])
+              π([src.img,"*"]),
+              "!"+π([src.img,"**/*.svg"])
             ],
-            dest: π([buildDir,"/"])
+            dest: build.dir
           }
         ]
       },
@@ -62,7 +62,15 @@ module.exports = function (g) {
               "*.css",
               "fonts/*"
             ],
-            dest: π([buildDir,cssDir,"vendor/slick/"])
+            dest: π([build.vendorcss, 'slick/'])
+          },
+          {
+            expand: true,
+            cwd: "node_modules/normalize.css",
+            src: [
+              "normalize.css"
+            ],
+            dest: π([build.vendorcss,"normalize/"])
           }
         ]
       }
@@ -72,14 +80,14 @@ module.exports = function (g) {
       options: {
         sourcemap: 'none',
         functions: {
-          svg: inliner(π([buildDir,imagesDir,"/"]))
+          svg: inliner(build.img)
         }
       },
       build: {
         files: [{
           expand: true,
-          src: ['sass/**/*.scss'],
-          dest: π([buildDir,cssDir,'/']),
+          src: π([src.sass,'**/*.scss']),
+          dest: build.css,
           ext: '.css'
         }]
       }
@@ -88,30 +96,34 @@ module.exports = function (g) {
     link_html: {
       build: {
         jsFiles: [
-          π([jsDir,"vendor/**/*.js"]),
-          π([jsDir,"*.js"])
+          π([src.jsvendor, '**/*.js']),
+          π([src.js, "*.js"])
         ],
         cssFiles: [
-          π([cssDir,"**/*.css"])
+          π([build.css,"**/*.css"])
         ],
         targetHtml: [
-          '*.html'
+          π([build.pages,'**/*.html'])
         ],
         options: {
-          cwd: '_build',
+          cwd: build.dir,
         }
       }
     },
 
     watch: {
       css: {
-        files: ["sass/**/*.scss"],
-        tasks: ["build_css"],
+        files: [
+          π([src.sass, "**/*.scss"])
+        ],
+        tasks: [
+          "build_css"
+        ],
       },
       js: {
         files: [
-          "js/**/*.js",
-          "*.html"
+          π([src.js, "**/*.js"]),
+          π([src.pages, "**/*.hbs"])
         ],
         tasks: [
           "browserify:build",
@@ -127,9 +139,9 @@ module.exports = function (g) {
     browserify: {
       build: {
         src: [
-          π([jsDir,"main.js"])
+          π([src.js, "main.js"])
         ],
-        dest: π([buildDir,jsDir,"main.js"])
+        dest: π([build.js, "main.js"])
       }
     },
 
@@ -142,7 +154,7 @@ module.exports = function (g) {
       },
       build: {
         src: [
-          π([buildDir,cssDir,'**/*.css'])
+          π([build.css, '**/*.css'])
         ]
       }
     },
@@ -151,17 +163,18 @@ module.exports = function (g) {
       build: {
         files: [
           {
+            cwd: src.img,
             expand: true,
             src: [
-              π([imagesDir,'**/*.svg'])
+              '**/*.svg'
             ],
-            dest: π([buildDir,'/'])
+            dest: build.img
           }
         ]
       }
     },
 
-    image_resize: {
+    /*    image_resize: {
       carousel: {
         options: {
           height: 1250,
@@ -172,19 +185,19 @@ module.exports = function (g) {
         src: π([imagesDir,'carousel/*.jpg']),
         dest: π([buildDir,imagesDir,'carousel/'])
       }
-    },
+    },*/
 
     replace_attribute: {
       build_images: {
         options: {
           replace: {
             'image': {
-              'xlink:href': π([imagesDir,'%value%'])
+              'xlink:href': 'img/%value%'
             }
           }
         },
         files: {
-          [π([buildDir,imagesDir,'sun-barn.dist.svg'])]: π([buildDir,imagesDir,'sun-barn.svg'])
+          [π([build.img, 'sun-barn.dist.svg'])]: π([build.img, 'sun-barn.svg'])
         }
       }
     },
@@ -194,39 +207,58 @@ module.exports = function (g) {
       },
       build_html: {
         expand: true,
+        cwd: build.pages,
         src: [
-          '*.html'
+          '**/*.html'
         ],
-        dest: π([buildDir,"/"])
+        dest: build.pages
+      }
+    },
+
+    assemble: {
+      options: {
+        layout: 'standard.hbs',
+        layoutdir: 'layouts/',
+        partials: 'partials/**/*.hbs'
+      },
+      build_html: {
+        expand: true,
+        cwd: src.pages,
+        src: [
+          '**/*.hbs'
+        ],
+        dest: build.pages
       }
     }
+
   });
 
-  g.registerTask("build", [
-    "gitinfo",
+  g.registerTask('build', [
+    'gitinfo',
     //"copy:build_css",
     //    "copy:build_html",
     'build_images',
-    "copy:build_vendor",
+    'copy:build_vendor',
     'build_css',
-    "browserify",
-    "build_html"
+    'browserify',
+    'build_html'
   ]);
 
   g.registerTask('build_html', [
     'processhtml:build_html',
-    "link_html"
+    'assemble:build_html',
+    'link_html'
   ]);
 
   g.registerTask('build_images', [
-    "copy:build_images",
-    'image_resize:carousel',
-    "tinyimg",
+    'copy:build_images',
+    //'image_resize:carousel',
+    'tinyimg',
     'replace_attribute:build_images'
   ]);
 
   g.registerTask('build_css', [
-    "sass:build",
-    "postcss"
+    'sass:build',
+    'postcss'
   ]);
 };
