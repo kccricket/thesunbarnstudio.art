@@ -59,6 +59,8 @@ body.loaded {
     padding: $one-vw ($one-vw * 2);
   }
 
+  $offset-width: $one-vw * 0.225;
+
   h1 {
     position: relative;
     font-family: 'Rancho', serif;
@@ -66,14 +68,13 @@ body.loaded {
     font-size: $one-vw * 5;
     @include no-spacing;
     color: rgba(255,0,255,0.75);
-    top: 3px;
+    top: $offset-width;
   }
 
-  $offset-width: 0.045vw;
   h1:after {
     content: attr(data-text);
     position: absolute;
-    top:-3px;
+    top: -$offset-width;
     right:0;
     bottom: 0;
     left: 0;
@@ -83,9 +84,9 @@ body.loaded {
   h1:before {
     content: attr(data-text);
     position: absolute;
-    left: -3px;
-    top: -6px;
-    right: 3px;
+    left: -$offset-width;
+    top: -$offset-width*2;
+    right: $offset-width;
     color: rgba(0,255,255,0.75);
   }
 }
@@ -149,6 +150,7 @@ body.loaded {
 @media only screen and (max-width: $max-body-width - 1) {
   #section-title {
 
+
     .paper-shadow {
       padding: 1vw 2vw;
     }
@@ -169,10 +171,24 @@ body.loaded {
   }
 
   @media only screen and (max-width: $max-body-width - 1) and (min-width: 860px) {
-    #section-links {
+    #section-title {
+      $offset-width: 0.269vw;
       h1 {
         font-size: 6vw;
+        top: $offset-width;
       }
+
+      h1:after {
+        top: -$offset-width;
+      }
+
+      h1:before {
+        left: -$offset-width;
+        top: -$offset-width*2;
+        right: $offset-width;
+      }
+    }
+    #section-links {
       span {
         width: 24vw;
         padding-bottom: 24vw;
@@ -185,10 +201,21 @@ body.loaded {
       max-width: initial;
     }
     #section-title {
+      $offset-width: 0.269vw;
       top: $one-vw;
       left: $one-vw;
       h1 {
         font-size: 7.5vw;
+        top: $offset-width;
+      }
+      h1:after {
+        top: -$offset-width;
+      }
+
+      h1:before {
+        left: -$offset-width;
+        top: -$offset-width*2;
+        right: $offset-width;
       }
     }
     #section-links {

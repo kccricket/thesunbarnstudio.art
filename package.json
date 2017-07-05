@@ -7,7 +7,9 @@
   "author": "Keith Constable <kccricket@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "assemble": "^0.24.3",
     "autoprefixer": "^7.1.1",
+    "font-awesome": "^4.7.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -22,7 +24,9 @@
     "grunt-sass": "^2.0.0",
     "grunt-tinyimg": "^1.0.0",
     "jquery": "^3.2.1",
+    "json2html": "^0.0.8",
     "load-grunt-tasks": "^3.5.2",
+    "normalize.css": "^7.0.0",
     "sass-inline-svg": "^0.2.0",
     "slick-carousel": "^1.6.0"
   }

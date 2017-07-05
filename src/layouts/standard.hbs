@@ -1,0 +1,18 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  {{> html-head }}
+  <body>
+    <div id="body">
+      <header id="section-title">
+        <div class="paper-shadow lifted">
+          <h1 id="title" data-text="{{ pkg.description }}">{{ pkg.description }}</h1>
+        </div>
+      </header>
+      <main>
+        {{> body }}
+      </main>
+      {{> body-footer }}
+      {{> spinner }}
+    </div>
+  </body>
+</html>

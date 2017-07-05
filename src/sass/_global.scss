@@ -13,17 +13,9 @@ $image-path: "../img";
 
 .paper-shadow {
   position:relative;
-//  padding:1em 2em;
   background: #F3F0E2 repeat center;
   background-image: url(http://api.thumbr.it/whitenoise-1200x400.png?background=f3f0e2ff&noise=c4c2b8&density=40&opacity=20);
   box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-
-.paper-shadow::before,
-.paper-shadow::after {
-  content:"";
-  position:absolute;
-  z-index:-2;
 }
 
 /* Lifted corners */
@@ -34,11 +26,13 @@ $image-path: "../img";
 
 .lifted::before,
 .lifted::after {
+  content:"";
+  position:absolute;
+  z-index:-2;
   bottom:15px;
   left:10px;
   width:50%;
   height:20%;
-//  max-width:300px;
   box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
   transform:rotate(-3deg);
 }
