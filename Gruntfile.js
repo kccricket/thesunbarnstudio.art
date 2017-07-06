@@ -5,19 +5,29 @@ module.exports = function (g) {
   "use strict";
 
   function π(parts, separator) {
-    return parts.map(function(part) { return part.trim().replace(/^[\/]*/g, ''); }).join(separator || '/');
+    return parts.map(function(part) { return part.trim().replace(/^\/+/g, ''); }).join(separator || '/').replace(/^\/+/, '');
   }
 
-  function cpo(base) {
+  function cpo(b) {
     return {
-      dir: π([base, '/']),
-      img: π([base, 'img/']),
-      css: π([base, 'css/']),
-      vendorcss: π([base, 'css/vendor/']),
-      sass: π([base, 'sass/']),
-      js: π([base, 'js/']),
-      jsvendor: π([base, 'js/vendor/']),
-      pages: π([base, 'html/'])
+      base: b.trim().replace(/^[\/]*/g, ''),
+      dir: π([b, '/']),
+      img: π([b, 'img/']),
+      css: {
+        dir: π([b, 'css/']),
+        vendor: π([b, 'css/vendor/']),
+      },
+      sass: π([b, 'sass/']),
+      js: {
+        dir: π([b, 'js/']),
+        vendor: π([b, 'js/vendor/'])
+      },
+      html: {
+        dir: π([b, 'html/']),
+        html: π([b, 'html/pages/']),
+        partials: π([b, 'html/partials/']),
+        layouts: π([b, 'html/layouts/'])
+      },
     };
   }
 
@@ -27,21 +37,31 @@ module.exports = function (g) {
   var src = cpo('src');
   var build = cpo('_build');
   var dist = cpo("dist");
+  var rel = cpo('');
 
   g.initConfig({
     pkg: g.file.readJSON("package.json"),
 
+    //  ╔═╗╔═╗╔═╗╦ ╦
+    //  ║  ║ ║╠═╝╚╦╝
+    //  ╚═╝╚═╝╩   ╩
     copy: {
+      //  |_    o| _|   _ _ _
+      //  |_)|_|||(_|__(__\_\
       build_css: {
         files: [
           {
+            expand: true,
+            cwd: src.css.dir,
             src: [
-              π([src.css,"**/*.css"])
+              '**/*.css'
             ],
-            dest: build.dir
+            dest: build.css.dir
           },
         ]
       },
+      //  |_    o| _|  o._ _  _ (~| _ _
+      //  |_)|_|||(_|__|| | |(_| _|}__\
       build_images: {
         files: [
           {
@@ -55,6 +75,8 @@ module.exports = function (g) {
           }
         ]
       },
+      //  |_    o| _|     _._  _| _ ._
+      //  |_)|_|||(_|__\/}_| |(_|(_)|
       build_vendor: {
         files: [
           {
@@ -64,7 +86,7 @@ module.exports = function (g) {
               "*.css",
               "fonts/*"
             ],
-            dest: π([build.vendorcss, 'slick/'])
+            dest: π([build.css.vendor, 'slick/'])
           },
           {
             expand: true,
@@ -72,12 +94,40 @@ module.exports = function (g) {
             src: [
               "normalize.css"
             ],
-            dest: π([build.vendorcss,"normalize/"])
+            dest: π([build.css.vendor,"normalize/"])
+          }
+        ]
+      },
+      //   _| _
+      //  (_|}_\/
+      dev: {
+        files: [
+          {
+            expand: true,
+            cwd: build.dir,
+            src: [
+              π([rel.css.dir, '**/*.css']),
+              π([rel.img, 'carousel/*']),
+              π([rel.js.dir, '**/*.js'])
+            ],
+            dest: dist.dir
+          },
+          {
+            expand: true,
+            cwd: build.html.dir,
+            src: [
+              '**/*.html',
+            ],
+            dest: dist.dir
           }
         ]
       }
     },
 
+
+    //  ╔═╗╔═╗╔═╗╔═╗
+    //  ╚═╗╠═╣╚═╗╚═╗
+    //  ╚═╝╩ ╩╚═╝╚═╝
     sass: {
       options: {
         sourcemap: 'none',
@@ -88,28 +138,37 @@ module.exports = function (g) {
       build: {
         files: [{
           expand: true,
-          src: π([src.sass,'**/*.scss']),
-          dest: build.css,
+          cwd: src.sass,
+          src: '**/*.scss',
+          dest: build.css.dir,
           ext: '.css'
         }]
       }
     },
 
+
+    //  ╦  ╦╔╗╔╦╔═    ╦ ╦╔╦╗╔╦╗╦
+    //  ║  ║║║║╠╩╗    ╠═╣ ║ ║║║║
+    //  ╩═╝╩╝╚╝╩ ╩────╩ ╩ ╩ ╩ ╩╩═╝
     link_html: {
       build: {
         jsFiles: [
-          π([src.jsvendor, '**/*.js']),
-          π([src.js, "*.js"])
+          π([dist.js.vendor, '**/*.js']),
+          π([dist.js.dir, "*.js"])
         ],
         cssFiles: [
-          π([build.css,"**/*.css"])
+          π([dist.css.dir,"**/*.css"])
         ],
         targetHtml: [
-          π([build.pages,'**/*.html'])
+          π([build.html.dir,'**/*.html'])
         ],
       }
     },
 
+
+    //  ╦ ╦╔═╗╔╦╗╔═╗╦ ╦
+    //  ║║║╠═╣ ║ ║  ╠═╣
+    //  ╚╩╝╩ ╩ ╩ ╚═╝╩ ╩
     watch: {
       css: {
         files: [
@@ -121,8 +180,8 @@ module.exports = function (g) {
       },
       js: {
         files: [
-          π([src.js, "**/*.js"]),
-          π([src.pages, "**/*.hbs"])
+          π([src.js.dir, "**/*.js"]),
+          π([src.html.dir, "**/*.hbs"])
         ],
         tasks: [
           "browserify:build",
@@ -135,15 +194,23 @@ module.exports = function (g) {
       },
     },
 
+
+    //  ╔╗ ╦═╗╔═╗╦ ╦╔═╗╔═╗╦═╗╦╔═╗╦ ╦
+    //  ╠╩╗╠╦╝║ ║║║║╚═╗║╣ ╠╦╝║╠╣ ╚╦╝
+    //  ╚═╝╩╚═╚═╝╚╩╝╚═╝╚═╝╩╚═╩╚   ╩
     browserify: {
       build: {
         src: [
-          π([src.js, "main.js"])
+          π([src.js.dir, "main.js"])
         ],
-        dest: π([build.js, "main.js"])
+        dest: π([build.js.dir, "main.js"])
       }
     },
 
+
+    //  ╔═╗╔═╗╔═╗╔╦╗╔═╗╔═╗╔═╗
+    //  ╠═╝║ ║╚═╗ ║ ║  ╚═╗╚═╗
+    //  ╩  ╚═╝╚═╝ ╩ ╚═╝╚═╝╚═╝
     postcss: {
       options: {
         map: false,
@@ -153,11 +220,15 @@ module.exports = function (g) {
       },
       build: {
         src: [
-          π([build.css, '**/*.css'])
+          π([build.css.dir, '**/*.css'])
         ]
       }
     },
 
+
+    // ╔╦╗╦╔╗╔╦ ╦╦╔╦╗╔═╗
+    //  ║ ║║║║╚╦╝║║║║║ ╦
+    //  ╩ ╩╝╚╝ ╩ ╩╩ ╩╚═╝
     tinyimg: {
       build: {
         files: [
@@ -186,12 +257,15 @@ module.exports = function (g) {
       }
     },*/
 
+    //  ╦═╗╔═╗╔═╗╦  ╔═╗╔═╗╔═╗    ╔═╗╔╦╗╔╦╗╦═╗╦╔╗ ╦ ╦╔╦╗╔═╗
+    //  ╠╦╝║╣ ╠═╝║  ╠═╣║  ║╣     ╠═╣ ║  ║ ╠╦╝║╠╩╗║ ║ ║ ║╣
+    //  ╩╚═╚═╝╩  ╩═╝╩ ╩╚═╝╚═╝────╩ ╩ ╩  ╩ ╩╚═╩╚═╝╚═╝ ╩ ╚═╝
     replace_attribute: {
       build_images: {
         options: {
           replace: {
             'image': {
-              'xlink:href': 'img/%value%'
+              'xlink:href': π([rel.img, 'carousel/%value%']),
             }
           }
         },
@@ -201,34 +275,41 @@ module.exports = function (g) {
       }
     },
 
+    //  ╔═╗╦═╗╔═╗╔═╗╔═╗╔═╗╔═╗╦ ╦╔╦╗╔╦╗╦
+    //  ╠═╝╠╦╝║ ║║  ║╣ ╚═╗╚═╗╠═╣ ║ ║║║║
+    //  ╩  ╩╚═╚═╝╚═╝╚═╝╚═╝╚═╝╩ ╩ ╩ ╩ ╩╩═╝
     processhtml: {
       options: {
       },
       build_html: {
         expand: true,
-        cwd: build.pages,
+        cwd: build.html.dir,
         src: [
           '**/*.html'
         ],
-        dest: build.pages
+        dest: build.html.dir
       }
     },
 
+
+    //  ╔═╗╔═╗╔═╗╔═╗╔╦╗╔╗ ╦  ╔═╗
+    //  ╠═╣╚═╗╚═╗║╣ ║║║╠╩╗║  ║╣
+    //  ╩ ╩╚═╝╚═╝╚═╝╩ ╩╚═╝╩═╝╚═╝
     assemble: {
       options: {
-        layoutdir: π([src.dir,'layouts']),
+        layoutdir: src.html.layouts,
         layout: 'standard',
-        partials: π([src.dir,'partials/**/*.hbs']),
+        partials: π([src.html.partials, '**/*.hbs']),
         layoutext: '.hbs',
         pkg: '<%= pkg %>',
       },
       build_html: {
         expand: true,
-        cwd: src.pages,
+        cwd: src.html.pages,
         src: [
           '**/*.hbs'
         ],
-        dest: build.pages
+        dest: build.html.dir
       }
     }
 
@@ -236,8 +317,6 @@ module.exports = function (g) {
 
   g.registerTask('build', [
     'gitinfo',
-    //"copy:build_css",
-    //    "copy:build_html",
     'build_images',
     'copy:build_vendor',
     'build_css',
@@ -253,7 +332,6 @@ module.exports = function (g) {
 
   g.registerTask('build_images', [
     'copy:build_images',
-    //'image_resize:carousel',
     'tinyimg',
     'replace_attribute:build_images'
   ]);
@@ -261,5 +339,10 @@ module.exports = function (g) {
   g.registerTask('build_css', [
     'sass:build',
     'postcss'
+  ]);
+
+  g.registerTask('dev', [
+    'build',
+    'copy:dev'
   ]);
 };
