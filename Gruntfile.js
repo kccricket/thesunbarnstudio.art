@@ -24,7 +24,7 @@ module.exports = function (g) {
       },
       html: {
         dir: π([b, 'html/']),
-        html: π([b, 'html/pages/']),
+        pages: π([b, 'html/pages/']),
         partials: π([b, 'html/partials/']),
         layouts: π([b, 'html/layouts/'])
       },
@@ -68,7 +68,7 @@ module.exports = function (g) {
             expand: true,
             cwd: src.img,
             src: [
-              "*",
+              "**",
               "!**/*.svg"
             ],
             dest: build.img
@@ -151,16 +151,19 @@ module.exports = function (g) {
     //  ║  ║║║║╠╩╗    ╠═╣ ║ ║║║║
     //  ╩═╝╩╝╚╝╩ ╩────╩ ╩ ╩ ╩ ╩╩═╝
     link_html: {
+      options: {
+        cwd: dist.dir
+      },
       build: {
         jsFiles: [
-          π([dist.js.vendor, '**/*.js']),
-          π([dist.js.dir, "*.js"])
+          π([rel.js.vendor, '**/*.js']),
+          π([rel.js.dir, "*.js"])
         ],
         cssFiles: [
-          π([dist.css.dir,"**/*.css"])
+          π([rel.css.dir,"**/*.css"])
         ],
         targetHtml: [
-          π([build.html.dir,'**/*.html'])
+          '**/*.html'
         ],
       }
     },
@@ -265,7 +268,7 @@ module.exports = function (g) {
         options: {
           replace: {
             'image': {
-              'xlink:href': π([rel.img, 'carousel/%value%']),
+              'xlink:href': π([rel.img, 'carousel', '%value%']),
             }
           }
         },
@@ -280,6 +283,7 @@ module.exports = function (g) {
     //  ╩  ╩╚═╚═╝╚═╝╚═╝╚═╝╚═╝╩ ╩ ╩ ╩ ╩╩═╝
     processhtml: {
       options: {
+        includeBase: build.dir
       },
       build_html: {
         expand: true,
