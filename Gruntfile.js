@@ -79,23 +79,23 @@ module.exports = function (g) {
       //  |_)|_|||(_|__\/}_| |(_|(_)|
       build_vendor: {
         files: [
-          {
-            expand: true,
-            cwd: "node_modules/slick-carousel/slick",
-            src: [
-              "*.css",
-              "fonts/*"
-            ],
-            dest: π([build.css.vendor, 'slick/'])
-          },
-          {
-            expand: true,
-            cwd: "node_modules/normalize.css",
-            src: [
-              "normalize.css"
-            ],
-            dest: π([build.css.vendor,"normalize/"])
-          }
+//          {
+//            expand: true,
+//            cwd: "node_modules/slick-carousel/slick",
+//            src: [
+//              "*.css",
+//              "fonts/*"
+//            ],
+//            dest: π([build.css.vendor, 'slick/'])
+//          },
+//          {
+//            expand: true,
+//            cwd: "node_modules/normalize.css",
+//            src: [
+//              "normalize.css"
+//            ],
+//            dest: π([build.css.vendor,"normalize/"])
+//          }
         ]
       },
       //   _| _
@@ -137,13 +137,13 @@ module.exports = function (g) {
       },
       build: {
         files: [
-          {
-            expand: true,
-            cwd: 'node_modules/bulma',
-            src: 'bulma.sass',
-            dest: π([build.css.vendor, 'bulma/']),
-            ext: '.css'
-          },
+//          {
+//            expand: true,
+//            cwd: 'node_modules/bulma',
+//            src: 'bulma.sass',
+//            dest: π([build.css.vendor, 'bulma/']),
+//            ext: '.css'
+//          },
           {
             expand: true,
             cwd: src.sass,
@@ -188,7 +188,9 @@ module.exports = function (g) {
           π([src.sass, "**/*.scss"])
         ],
         tasks: [
-          "build_css"
+          "build_css",
+          'copy:dev',
+          'link_html'
         ],
       },
       js: {
@@ -198,7 +200,9 @@ module.exports = function (g) {
         ],
         tasks: [
           "browserify:build",
-          "build_html"
+          "build_html",
+          'copy:dev',
+          'link_html'
         ]
       },
       grunt: {

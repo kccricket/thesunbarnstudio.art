@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500,700,800,900|Rancho');
 @import 'global';
+@import 'node_modules/bulma/bulma';
 
 $loaded-transition-time: 0.75s;
-$max-body-width: 1336px;
+$max-body-width: 1344px;
 $one-vw: $max-body-width / 100;
 
 
 body {
-  background-color:#222;
-  background-image: radial-gradient(closest-side, transparent 98%, rgba(0,0,0,.3) 99%),
-    radial-gradient(closest-side, transparent 98%, rgba(0,0,0,.3) 99%);
-  background-size: 80px 80px;
-  background-position: 0 0, 40px 40px;
+  //  background-color:#222;
+  //  background-image: radial-gradient(closest-side, transparent 98%, rgba(0,0,0,.3) 99%),
+  //    radial-gradient(closest-side, transparent 98%, rgba(0,0,0,.3) 99%);
+  //  background-size: 80px 80px;
+  //  background-position: 0 0, 40px 40px;
   overflow: hidden;
 
   &:after {
@@ -41,23 +42,17 @@ body.loaded {
   }
 }
 
-#body {
+.page-hero .container {
   position: relative;
-  max-width: $max-body-width;
-  margin: 0 auto;
 }
 
-#section-title {
+.site-title {
   position: absolute;
   top: $one-vw * 1.5;
   left: $one-vw * 1.5;
   z-index: 10;
   transform: rotate(1.5deg);
   @include transition-all;
-
-  .paper-shadow {
-    padding: $one-vw ($one-vw * 2);
-  }
 
   $offset-width: $one-vw * 0.225;
 
@@ -91,138 +86,125 @@ body.loaded {
   }
 }
 
-#section-top {
-  position: relative;
-  padding: $one-vw * 2.4;
-}
-
-#section-carousel {
-  @include transition-all;
-  overflow: hidden;
-
-  svg {
-    max-width: 90%;
-    margin: 0 auto;
-    display: block;
+.flex {
+  display: flex;
+  height: 100%;
+  &.centered {
+    justify-content: center;
+    align-items: center;
   }
 }
 
-#section-links {
-  $link-width-max: 267.2px;
-
-  ul {
-    @include inline-list;
-    text-align: center;
-    display: block;
-
-    li {
-      @include transition-all;
-      margin-left: $one-vw * 2;
-      margin-right: $one-vw * 2;
-    }
-  }
-
-  span {
-    $max-width-divisor: 1 / 1336;
-    margin: -25% 0;
-    width: $link-width-max;
-    padding-bottom: $link-width-max;
+#social-links {
+  .container > * > * {
     position: relative;
-    display: block;
-    @include transition-all;
+    min-height: 6em;
   }
+  font-size: 2em;
+}
 
-  a {
-    @include overlay;
-    @include hide-text;
-    box-shadow: 0px 5px 10px 0px $color-shadow;
-  }
+.replace-with-image {
+  @include hide-text;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin: 0 0.5em;
 }
 
 #link-facebook {
-  background: $color-facebook svg("facebook-logo-white.svg") no-repeat center / 50%;
+  background-color: $color-facebook;
+  .replace-with-image {
+    background-image: svg("facebook-logo-white.svg");
+    height: 3em; width: 3em;
+  }
 }
 
 #link-etsy {
-  background: $color-etsy svg("etsy-logo-white.svg") no-repeat center / 60%;
-}
-
-@media only screen and (max-width: $max-body-width - 1) {
-  #section-title {
-
-
-    .paper-shadow {
-      padding: 1vw 2vw;
-    }
-  }
-  #section-top {
-    padding: 2.4vw;
-  }
-  #section-links {
-
-    ul li {
-      margin-left: 2vw;
-      margin-right: 2vw;
-    }
-  }
-
-  @media only screen and (max-width: 735px) {
-
-  }
-
-  @media only screen and (max-width: $max-body-width - 1) and (min-width: 860px) {
-    #section-title {
-      $offset-width: 0.269vw;
-      h1 {
-        font-size: 6vw;
-        top: $offset-width;
-      }
-
-      h1:after {
-        top: -$offset-width;
-      }
-
-      h1:before {
-        left: -$offset-width;
-        top: -$offset-width*2;
-        right: $offset-width;
-      }
-    }
-    #section-links {
-      span {
-        width: 24vw;
-        padding-bottom: 24vw;
-      }
-    }
-  }
-
-  @media only screen and (max-width: 859px) {
-    #section-carousel svg {
-      max-width: initial;
-    }
-    #section-title {
-      $offset-width: 0.269vw;
-      top: $one-vw;
-      left: $one-vw;
-      h1 {
-        font-size: 7.5vw;
-        top: $offset-width;
-      }
-      h1:after {
-        top: -$offset-width;
-      }
-
-      h1:before {
-        left: -$offset-width;
-        top: -$offset-width*2;
-        right: $offset-width;
-      }
-    }
-    #section-links {
-      span {
-        width: 30vw;
-        padding-bottom: 30vw;
-      }
-    }
+  background: $color-etsy;
+  .replace-with-image {
+    background-image: svg("etsy-logo-white.svg");
+    height: 3em; width: 8em;
+    margin-bottom: -0.125em;
   }
 }
+
+//@media only screen and (max-width: $max-body-width - 1) {
+//  #section-title {
+//
+//
+//    .paper-shadow {
+//      padding: 1vw 2vw;
+//    }
+//  }
+//  #section-top {
+//    padding: 2.4vw;
+//  }
+//  #section-links {
+//
+//    ul li {
+//      margin-left: 2vw;
+//      margin-right: 2vw;
+//    }
+//  }
+//
+//  @media only screen and (max-width: 735px) {
+//
+//  }
+//
+//  @media only screen and (max-width: $max-body-width - 1) and (min-width: 860px) {
+//    #section-title {
+//      $offset-width: 0.269vw;
+//      h1 {
+//        font-size: 6vw;
+//        top: $offset-width;
+//      }
+//
+//      h1:after {
+//        top: -$offset-width;
+//      }
+//
+//      h1:before {
+//        left: -$offset-width;
+//        top: -$offset-width*2;
+//        right: $offset-width;
+//      }
+//    }
+//    #section-links {
+//      span {
+//        width: 24vw;
+//        padding-bottom: 24vw;
+//      }
+//    }
+//  }
+//
+//  @media only screen and (max-width: 859px) {
+//    #section-carousel svg {
+//      max-width: initial;
+//    }
+//    #section-title {
+//      $offset-width: 0.269vw;
+//      top: $one-vw;
+//      left: $one-vw;
+//      h1 {
+//        font-size: 7.5vw;
+//        top: $offset-width;
+//      }
+//      h1:after {
+//        top: -$offset-width;
+//      }
+//
+//      h1:before {
+//        left: -$offset-width;
+//        top: -$offset-width*2;
+//        right: $offset-width;
+//      }
+//    }
+//    #section-links {
+//      span {
+//        width: 30vw;
+//        padding-bottom: 30vw;
+//      }
+//    }
+//  }
+//}

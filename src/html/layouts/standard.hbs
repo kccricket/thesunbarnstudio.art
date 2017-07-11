@@ -1,18 +1,14 @@
-<!doctype html>
-<html class="no-js" lang="en" dir="ltr">
-  {{> html-head }}
-  <body>
-    <div id="body">
-      <header id="section-title">
-        <div class="paper-shadow lifted">
-          <h1 id="title" data-text="{{ pkg.description }}">{{ pkg.description }}</h1>
-        </div>
-      </header>
-      <main>
-        {{> body }}
-      </main>
-      {{> body-footer }}
-      {{> spinner }}
+---
+layout: global
+---
+<header class="hero is-primary page-hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title" data-text="{{pkg.description}}">{{pkg.description}}</h1>
+      <h2 class="subtitle">{{title}}</h2>
     </div>
-  </body>
-</html>
+  </div>
+</header>
+<main>
+  {{>body}}
+</main>

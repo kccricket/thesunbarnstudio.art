@@ -1,7 +1,6 @@
 @mixin hide-text {
-  line-height: 0;
-  font-size: 0;
-  color: transparent;
+  text-indent: -9000px;
+  overflow: hidden;
 }
 
 @mixin centerer($horizontal: true, $vertical: true) {
