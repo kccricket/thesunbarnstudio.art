@@ -136,13 +136,22 @@ module.exports = function (g) {
         }
       },
       build: {
-        files: [{
-          expand: true,
-          cwd: src.sass,
-          src: '**/*.scss',
-          dest: build.css.dir,
-          ext: '.css'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: 'node_modules/bulma',
+            src: 'bulma.sass',
+            dest: π([build.css.vendor, 'bulma/']),
+            ext: '.css'
+          },
+          {
+            expand: true,
+            cwd: src.sass,
+            src: '**/*.scss',
+            dest: build.css.dir,
+            ext: '.css'
+          }
+        ]
       }
     },
 
@@ -160,7 +169,8 @@ module.exports = function (g) {
           π([rel.js.dir, "*.js"])
         ],
         cssFiles: [
-          π([rel.css.dir,"**/*.css"])
+          π([rel.css.vendor,"**/*.css"]),
+          π([rel.css.dir,"*.css"])
         ],
         targetHtml: [
           '**/*.html'
@@ -190,6 +200,12 @@ module.exports = function (g) {
           "browserify:build",
           "build_html"
         ]
+      },
+      grunt: {
+        files: [
+          'Gruntfile.js'
+        ],
+        tasks: 'dev'
       },
       options: {
         // Start a live reload server on the default port 35729
