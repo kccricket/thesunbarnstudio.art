@@ -330,8 +330,7 @@ module.exports = function (g) {
 
   g.registerTask('build_html', [
     'assemble:build_html',
-    'processhtml:build_html',
-    'link_html'
+    'processhtml:build_html'
   ]);
 
   g.registerTask('build_images', [
@@ -344,9 +343,9 @@ module.exports = function (g) {
     'sass:build',
     'postcss'
   ]);
-
   g.registerTask('dev', [
     'build',
-    'copy:dev'
+    'copy:dev',
+    'link_html'
   ]);
 };

@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "autoprefixer": "^7.1.1",
+    "bulma": "^0.4.3",
     "font-awesome": "^4.7.0",
     "grunt": "^1.0.1",
     "grunt-assemble": "^0.6.3",
