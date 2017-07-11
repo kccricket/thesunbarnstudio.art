@@ -42,11 +42,11 @@ body.loaded {
   }
 }
 
-.page-hero .container {
+#page-hero .container {
   position: relative;
 }
 
-.site-title {
+#page-hero .site-title {
   position: absolute;
   top: $one-vw * 1.5;
   left: $one-vw * 1.5;
@@ -60,9 +60,9 @@ body.loaded {
     position: relative;
     font-family: 'Rancho', serif;
     font-weight: 700;
-    font-size: $one-vw * 5;
+    font-size: $one-vw * 7;
     @include no-spacing;
-    color: rgba(255,0,255,0.75);
+    color: rgba(255,0,255,0.5);
     top: $offset-width;
   }
 
@@ -96,9 +96,13 @@ body.loaded {
 }
 
 #social-links {
+  a {
+    display: block;
+    height: 100%;
+  }
   .container > * > * {
-    position: relative;
-    min-height: 6em;
+//    position: relative;
+    height: 6em;
   }
   font-size: 2em;
 }
@@ -112,20 +116,22 @@ body.loaded {
   margin: 0 0.5em;
 }
 
-#link-facebook {
+#link-facebook a {
   background-color: $color-facebook;
+  color: findColorInvert($color-facebook);
   .replace-with-image {
     background-image: svg("facebook-logo-white.svg");
     height: 3em; width: 3em;
   }
 }
 
-#link-etsy {
+#link-etsy a {
   background: $color-etsy;
+  color: findColorInvert($color-etsy);
   .replace-with-image {
     background-image: svg("etsy-logo-white.svg");
-    height: 3em; width: 8em;
-    margin-bottom: -0.125em;
+    height: 3em; width: 3em * 2.1089;
+    margin-bottom: -0.75em;
   }
 }
 
